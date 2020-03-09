@@ -15,7 +15,7 @@ Meanwhile, our box was constantly getting DoS'd and fork bombed. A lot of the ot
 
 # Ranking
 We placed 72nd out of 122 scoring teams and 268 registered teams.
-![ranking.png][ranking.png]
+![](ranking.png)
 That's not as terrible as I expected, considering that we didn't manage to pull off a successful exploit on an opponent's box. All our points came from keeping our vulnbox up and services online. We got beat up, but _man_ it was fun!
 
 # Lessons Learned
