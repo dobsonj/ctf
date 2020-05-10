@@ -1,13 +1,12 @@
-
-tellme
-10
-Wave 2
+# tellme
 
 OK, do you think you know my secret? See if you can guess what I'm expecting to hear.
 
+## Analysis
 
 Decompile it with Ghidra and there are two important functions:
 
+```
 undefined8 FUN_0010141a(void)
 {
   int iVar1;
@@ -32,7 +31,9 @@ undefined8 FUN_0010141a(void)
   free(local_10);
   return 0;
 }
+```
 
+```
 void * FUN_00101215(char *pcParm1,char *pcParm2)
 {
   char cVar1;
@@ -70,24 +71,28 @@ void * FUN_00101215(char *pcParm1,char *pcParm2)
   }
   return pvVar3;
 }
-
+```
 
 Notice that FUN_0010141a() is passing 2 string constants into FUN_00101215():
 
+```
   xzyu{hfkxcbhmloaoftay}
   SOYOULYKECATS
+```
 
-And if the result of FUN_00101215() is the same as our input, we win.
+And if the result of `FUN_00101215()` is the same as our input, we win.
 
+```
   local_10 = FUN_00101215(s_xzyu{hfkxcbhmloaoftay}_001040b0,s_SOYOULYKECATS_001040a0);
   iVar1 = strcmp(local_18,local_10);
   if (iVar1 == 0) {
     puts("You got it!");
   }
-
+```
 
 So just recompile that function in a separate program, pass in those 2 static strings, and print the output.
 
+```
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -138,10 +143,13 @@ int main() {
         printf("%s\n",str2);
         printf(decode(str1, str2));
 }
-
+```
 
 The output of this program is what we need to pass into tellme to confirm the flag.
 
+## Get the flag
+
+```
 root@kali:~/Downloads# ./a.out 
 xzyu{hfkxcbhmloaoftay}
 SOYOULYKECATS
@@ -149,5 +157,5 @@ flag{whataboutacalico}
 root@kali:~/Downloads# echo 'flag{whataboutacalico}' | ./tellme
 Do you know?
 Tell me: You got it!
-
+```
 

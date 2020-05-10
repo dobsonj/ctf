@@ -1,13 +1,13 @@
 
-tellmemore
-48
+# tellmemore
 
 Well, we realized tellme was broken.. We fixed one problem, but there might still be something wrong with it.
 
+## Analysis
 
 This challenge was only slightly different from 'tellme', but the approach was the same. Just decompile it with Ghidra. In this case, I compared the code from tellme and tellmemore, then modified a few lines tellme.c to solve this challenge.
 
-
+```
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,9 +57,11 @@ int main() {
         printf("%s\n",str2);
         printf(decode(str1, str2));
 }
+```
 
 One of the static strings is different, and there is a slight change to the while loop as well.
 
+```
 $ diff tellme/tellme.c tellmemore/tellmemore.c
 12a13
 >   size_t sVar4;
@@ -77,12 +79,15 @@ $ diff tellme/tellme.c tellmemore/tellmemore.c
 < 	char *str1 = "xzyu{hfkxcbhmloaoftay}";
 ---
 > 	char *str1 = "xzyu{h3v0xev4ln}";
+```
 
+## Get the flag
 
 Run the pogram above to get the flag, then verify by piping it into ./tellmemore:
 
+```
 root@kali:~/Downloads# echo 'flag{w3l0vec4tz}' | ./tellmemore
 Do you know?
 Tell me: You got it!
-
+```
 

@@ -1,14 +1,13 @@
 
-antisat.exe
-97
-Wave 1
+# antisat.exe
 
 Our cluster just locked up. Could you see why our sat solver isn't tearing through this? It's a standard Windows 64 binary.
 
+## Static analysis
 
 Egan decompiled antisat.exe with Ghidra and pulled out main():
 
-
+```
 /* DISPLAY WARNING: Type casts are NOT being printed */
 
 int main(int _Argc,char **_Argv,char **_Env)
@@ -45,10 +44,11 @@ int main(int _Argc,char **_Argv,char **_Env)
   }
   return iVar2;
 }
-
+```
 
 Then we just tweaked it and recompiled it natively without the slow printf():
 
+```
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -86,15 +86,18 @@ int main(int argc, char *argv[])
   }
   return iVar2;
 }
+```
 
+That was tested by comparing with the results from running antisat.exe in a Windows VM.
 
-Tested by comparing with the results from running antisat.exe in a Windows VM.
+## Get the flag
 
 After that, it just took a few minutes to brute force it:
 
+```
 nulladdr:~$ gcc -o antisat antisat.c 
 nulladdr@unknown:~$ for i in `seq 1 1000000`; do ./antisat $i | grep flag; done
 Good job! flag{18772}
 ^C
-
+```
 

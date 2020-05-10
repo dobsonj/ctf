@@ -1,25 +1,35 @@
 
-Put your thang down flip it and reverse it
-150
+# Put your thang down flip it and reverse it
+
 Ra-ta-ta-ta-ta-ta-ta-ta-ta-ta.
 
+## What are we dealing with?
 
+```
 kali@kali:~/Downloads$ file missyelliott 
 missyelliott: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=b9102dff60f031b84a190121ab6d167ab825c298, for GNU/Linux 3.2.0, stripped
+```
 
 Start with the essential research:
+
 https://www.youtube.com/watch?v=cjIvu7e6Wq8
 
-It's an executable, run it and see what happens:
+The file is an executable, run it and see what happens:
 
+```
 kali@kali:~/Downloads$ ./missyelliott 
 Let me search ya.
 
 Wrong. You need to work it.
+```
 
 It just takes an input and tries to validate it.
+
+## Static analysis
+
 Decompile with Ghidra. Here is the entry function:
 
+```
 void entry(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined8 in_stack_00000000;
@@ -31,9 +41,11 @@ void entry(undefined8 param_1,undefined8 param_2,undefined8 param_3)
                     /* WARNING: Do nothing block with infinite loop */
   } while( true );
 }
+```
 
 entry() calls this function:
 
+```
 undefined8 FUN_0010137d(void)
 {
   size_t sVar1;
@@ -51,21 +63,27 @@ undefined8 FUN_0010137d(void)
   FUN_001011bb();
   return 0;
 }
+```
 
 It's looking for exactly 43 chars (0x2b). Otherwise, it fails with:
 
+```
 void FUN_00101195(void)
 {
   puts("Wrong. You need to work it.");
   return;
 }
+```
 
+```
 kali@kali:~/Downloads$ perl -e 'print "A"x43' | ./missyelliott
 Let me search ya.
 Wrong. You need to work it.
+```
 
 Alright, now we make it past the first check and into this function:
 
+```
 void FUN_001012f2(void)
 {
   int local_c;
@@ -77,14 +95,18 @@ void FUN_001012f2(void)
   }
   return;
 }
+```
 
 That takes the complement of each char, similar to this:
 
+```
 kali@kali:~/Downloads$ perl -e 'printf("%x\n",~(65));'
 ffffffffffffffbe
+```
 
 The next function after the complement is:
 
+```
 void FUN_001011f7(void)
 {
   undefined uVar1;
@@ -114,15 +136,19 @@ void FUN_001011f7(void)
   }
   return;
 }
+```
 
-FUN_001011f7() iterates over the input string and does some bitwise operations on each char.
+`FUN_001011f7()` iterates over the input string and does some bitwise operations on each char.
 Lol, then it reverses the string at the end of the function.
 We need to derive the right flag as input. This would be the flag format for a total of 43 chars:
 
+```
 DawgCTF{XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX}
+```
 
-After the transformation above is done, the validation function compares DAT_00104040 to PTR_DAT_00104010:
+After the transformation above is done, the validation function compares `DAT_00104040` to `PTR_DAT_00104010`:
 
+```
 void FUN_001011bb(void)
 {
   int iVar1;
@@ -136,24 +162,30 @@ void FUN_001011bb(void)
   }
   return;
 }
+```
 
 We want to hit this function:
 
+```
 void FUN_001011a8(void)
 {
   puts("You did it!  Was it worth it?");
   return;
 }
+```
 
-We already know DAT_00104040 is the input + transformations. That has to match PTR_DAT_00104010, which is just a pointer to DAT_00102008.
+We already know `DAT_00104040` is the input + transformations. That has to match `PTR_DAT_00104010`, which is just a pointer to `DAT_00102008`.
 
+```
                              PTR_DAT_00104010                                XREF[1]:     FUN_001011bb:001011bf(R)  
         00104010 08 20 10        addr       DAT_00102008                                     = 41h    A
                  00 00 00 
                  00 00
+```
 
 So our input should equal the following after the transformations are done:
 
+```
                              DAT_00102008                                    XREF[2]:     FUN_001011bb:001011cb(*), 
                                                                                           00104010(*)  
         00102008 41              ??         41h    A
@@ -200,13 +232,19 @@ So our input should equal the following after the transformations are done:
         00102031 79              ??         79h    y
         00102032 dd              ??         DDh
         00102033 00              ??         00h
+```
 
 Put your thang down flip it and reverse it:
 
+```
 "\xDD\x79\x11\x19\x3D\xD5\x9D\x21\x8B\xD1\x6D\x59\x31\xB1\x59\x91\x59\xB5\xD9\x89\x7D\xD1\x6D\xF1\x69\xC9\x9D\xCB\x89\x11\x09\xDD\x19\x89\x69\xE9\xD5\x61\x4D\xD1\x51\xF5\x41"
+```
 
-I wrote the following solver to brute force each char of the reversed string above:
+## Write a solver
 
+We can use the decompiled C code to determine the input string one character at a time.
+
+```
 kali@kali:~/Downloads$ cat missyelliott_solver.c
 #include <stdio.h>
 #include <stdlib.h>
@@ -262,7 +300,11 @@ int main() {
 
         return 0;
 }
+```
 
+## Get the flag
+
+```
 kali@kali:~/Downloads$ gcc missyelliott_solver.c && time ./a.out
 printable chars:  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
 num printable chars: 95
@@ -314,8 +356,11 @@ DawgCTF{.tIesreveRdnAtIpilF,nwoDgnihTyMtuP}
 real    0m0.001s
 user    0m0.001s
 sys     0m0.000s
+```
 
 This is the flag that was accepted:
 
+```
 DawgCTF{.tIesreveRdnAtIpilF,nwoDgnihTyMtuP}
+```
 

