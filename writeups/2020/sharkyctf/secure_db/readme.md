@@ -49,7 +49,7 @@ Wrong password sorry, exiting.
 
 It's a 32-bit executable that takes a single filename argument and a single password via STDIN.
 
-## Static analysis
+## Analysis
 
 Open the binary in Ghidra and find where the input is accepted.
 

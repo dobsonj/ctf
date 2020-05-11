@@ -47,6 +47,8 @@ kali@kali:~/Downloads/wipctf$ cat invoice.html
 </html>
 ```
 
+## Analysis
+
 Use `uglifyjs` to demangle that code.
 
 ```

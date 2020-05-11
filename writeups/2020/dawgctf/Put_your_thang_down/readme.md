@@ -25,7 +25,7 @@ Wrong. You need to work it.
 
 It just takes an input and tries to validate it.
 
-## Static analysis
+## Analysis
 
 Decompile with Ghidra. Here is the entry function:
 

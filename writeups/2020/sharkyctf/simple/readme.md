@@ -72,7 +72,7 @@ kali@kali:~/Downloads/simple$ echo $?
 0
 ```
 
-## Static analysis
+## Analysis
 
 The assembly code is quite small, but the decompiled C code still might help our understanding:
 

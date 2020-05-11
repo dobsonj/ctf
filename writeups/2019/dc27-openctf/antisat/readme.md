@@ -3,7 +3,7 @@
 
 Our cluster just locked up. Could you see why our sat solver isn't tearing through this? It's a standard Windows 64 binary.
 
-## Static analysis
+## Analysis
 
 Egan decompiled antisat.exe with Ghidra and pulled out main():
 

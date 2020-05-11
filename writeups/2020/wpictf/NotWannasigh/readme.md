@@ -17,10 +17,10 @@ A note from the creator: Shoutout to Demonslay335 for challenge inspiration - he
 
     Abjuri5t (John F.)
 
-http://us-east-1.linodeobjects.com/wpictf-challenge-files/192-168-1-11_potential-malware.pcap
-http://us-east-1.linodeobjects.com/wpictf-challenge-files/ransomNote.txt
-http://us-east-1.linodeobjects.com/wpictf-challenge-files/flag-gif.EnCiPhErEd
-http://us-east-1.linodeobjects.com/wpictf-challenge-files/NotWannasigh.zip
+* http://us-east-1.linodeobjects.com/wpictf-challenge-files/192-168-1-11_potential-malware.pcap
+* http://us-east-1.linodeobjects.com/wpictf-challenge-files/ransomNote.txt
+* http://us-east-1.linodeobjects.com/wpictf-challenge-files/flag-gif.EnCiPhErEd
+* http://us-east-1.linodeobjects.com/wpictf-challenge-files/NotWannasigh.zip
 
 ## What are we dealing with?
 
@@ -43,7 +43,7 @@ kali@kali:~/Downloads/wipctf/wannasigh$ file NotWannasigh
 NotWannasigh: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=ca17985d5f493aded88f81b8bfa47206118c6c9f, for GNU/Linux 3.2.0, not stripped
 ```
 
-## Static analysis
+## Analysis
 
 Open the binary in Ghidra and decompile.
 Let's start with `main()`... and hold your nose.
