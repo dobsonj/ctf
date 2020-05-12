@@ -73,7 +73,7 @@ void * FUN_00101215(char *pcParm1,char *pcParm2)
 }
 ```
 
-Notice that FUN_0010141a() is passing 2 string constants into FUN_00101215():
+Notice that `FUN_0010141a()` is passing 2 string constants into `FUN_00101215()`:
 
 ```
   xzyu{hfkxcbhmloaoftay}
@@ -90,7 +90,9 @@ And if the result of `FUN_00101215()` is the same as our input, we win.
   }
 ```
 
-So just recompile that function in a separate program, pass in those 2 static strings, and print the output.
+## Solution
+
+Just recompile that function in a separate program, pass in those 2 static strings, and print the output.
 
 ```
 #include <ctype.h>
@@ -146,8 +148,6 @@ int main() {
 ```
 
 The output of this program is what we need to pass into tellme to confirm the flag.
-
-## Get the flag
 
 ```
 root@kali:~/Downloads# ./a.out 

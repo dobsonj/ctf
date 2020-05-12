@@ -9,13 +9,16 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 I focused most of my time on the following 3 challenges:
 
-1. NotWannasigh (reversing)
+## Reverse Engineering
 
-2. danger-Live-and-Malicious-Code (reversing)
+* [danger-Live-and-Malicious-Code](danger-Live-and-Malicious-Code/)
+* [NotWannasigh](NotWannasigh/)
 
-3. acurless_kdf (crypto) _INCOMPLETE_
+## Cryptography
 
-I completed the first two and ran out of time on the third one.
+* [acurless_kdf](acurless_kdf/) (INCOMPLETE)
+
+I completed the first two and ran out of time on acurless_kdf. But apparently no one else got that one either.
 
 # Ranking
 We placed *4th* out of 925 registered teams and 619 scoring teams (>=25 pts).

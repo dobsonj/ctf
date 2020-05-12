@@ -5,14 +5,14 @@ Ra-ta-ta-ta-ta-ta-ta-ta-ta-ta.
 
 ## What are we dealing with?
 
+Start with the essential research:
+
+https://www.youtube.com/watch?v=cjIvu7e6Wq8
+
 ```
 kali@kali:~/Downloads$ file missyelliott 
 missyelliott: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=b9102dff60f031b84a190121ab6d167ab825c298, for GNU/Linux 3.2.0, stripped
 ```
-
-Start with the essential research:
-
-https://www.youtube.com/watch?v=cjIvu7e6Wq8
 
 The file is an executable, run it and see what happens:
 
@@ -43,7 +43,7 @@ void entry(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 }
 ```
 
-entry() calls this function:
+`entry()` calls this function:
 
 ```
 undefined8 FUN_0010137d(void)
@@ -240,7 +240,7 @@ Put your thang down flip it and reverse it:
 "\xDD\x79\x11\x19\x3D\xD5\x9D\x21\x8B\xD1\x6D\x59\x31\xB1\x59\x91\x59\xB5\xD9\x89\x7D\xD1\x6D\xF1\x69\xC9\x9D\xCB\x89\x11\x09\xDD\x19\x89\x69\xE9\xD5\x61\x4D\xD1\x51\xF5\x41"
 ```
 
-## Write a solver
+## Solution
 
 We can use the decompiled C code to determine the input string one character at a time.
 
@@ -302,7 +302,7 @@ int main() {
 }
 ```
 
-## Get the flag
+Compile and run it
 
 ```
 kali@kali:~/Downloads$ gcc missyelliott_solver.c && time ./a.out

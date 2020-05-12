@@ -390,7 +390,7 @@ That's... something I guess. It's probably faster to solve this 1 character at a
 
 Let's try `angr` to solve this.
 
-## Write a solver
+## Solution
 
 ```
 kali@kali:~/Downloads/secure_db$ cat solve.py 
@@ -438,8 +438,6 @@ b'T4h7s_4ll_F0lks\x00'
 ```
 
 That's pretty freakin' incredible. This was my first time using angr, and it could have saved me hours on previous CTF challenges like this.
-
-# Get the flag
 
 Now that we have the password, pass it into `secure_db`.
 

@@ -5,7 +5,7 @@ Well, we realized tellme was broken.. We fixed one problem, but there might stil
 
 ## Analysis
 
-This challenge was only slightly different from 'tellme', but the approach was the same. Just decompile it with Ghidra. In this case, I compared the code from tellme and tellmemore, then modified a few lines tellme.c to solve this challenge.
+This challenge was only slightly different from 'tellme', but the approach was the same. Just decompile it with Ghidra. In this case, I compared the code from tellme and tellmemore, then modified a few lines in tellme.c to solve this challenge.
 
 ```
 #include <ctype.h>
@@ -81,7 +81,7 @@ $ diff tellme/tellme.c tellmemore/tellmemore.c
 > 	char *str1 = "xzyu{h3v0xev4ln}";
 ```
 
-## Get the flag
+## Solution
 
 Run the pogram above to get the flag, then verify by piping it into ./tellmemore:
 

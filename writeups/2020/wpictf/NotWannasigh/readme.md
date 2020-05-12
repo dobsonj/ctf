@@ -407,7 +407,7 @@ This last part obviously creates the ransom note:
 
 It's just an XOR cipher, so it should be simple to reverse with that seed.
 
-## Write decryption program
+## Solution
 
 ```
 kali@kali:~/Downloads/wipctf/wannasigh$ cat decrypt.c
@@ -448,7 +448,7 @@ int main()
 }
 ```
 
-## Get the flag
+Run it to decrypt `flag.gif`
 
 ```
 kali@kali:~/Downloads/wipctf/wannasigh$ gcc decrypt.c -o decrypt

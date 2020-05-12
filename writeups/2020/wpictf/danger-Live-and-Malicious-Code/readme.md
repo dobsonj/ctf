@@ -91,7 +91,11 @@ for (var i = 1; i === i; i++) {
 }
 ```
 
-The for loop at the bottom is an infinite loop to create pop-up windows. We definitely don't want to run that. The other variables look interesting though. The flag is being built from the array of strings on the first line. Let's print them out and see what happens.
+The for loop at the bottom is an infinite loop to create pop-up windows. We definitely don't want to run that. The other variables look interesting though. The flag is being built from the array of strings on the first line.
+
+## Solution
+
+Let's print those variables out and see what happens.
 
 ```
 kali@kali:~/Downloads/wipctf$ cp invoice.html invoice_mod.html
@@ -141,8 +145,6 @@ document.write("g: " + g + "<br>\n");
 </body>
 </html>
 ```
-
-## Get the flag
 
 Open `invoice_mod.html` in firefox and get:
 

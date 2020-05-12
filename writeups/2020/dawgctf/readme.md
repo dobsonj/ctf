@@ -9,9 +9,10 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 I focused primarily on 2 reverse engineering challenges in this CTF. I solved the first one, but I ran into the time limit while still working on the second one.
 
-1. Put_your_thang_down_flip_it_and_reverse_it
+## Reverse Engineering
 
-2. Ocean_Boutique
+* [Put_your_thang_down_flip_it_and_reverse_it](Put_your_thang_down/)
+* [Ocean_Boutique](Ocean_Boutique/) (UNFINISHED)
 
 The real solution for Ocean Boutique can be found [here](https://github.com/toomanybananas/dawgctf-2020-writeups/tree/master/reversing/ocean-boutique). It looks like I was probably about 80% of the way there.
 

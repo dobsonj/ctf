@@ -9,6 +9,16 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 # Summary
 
+## Reverse Engineering
+
+* [antisat](antisat/)
+* [tellme](tellme/)
+* [tellmemore](tellmemore/)
+
+## Cryptography
+
+* [baby_secret](baby_secret/)
+
 # Ranking
 We placed 8th out of 229 scoring teams :)
 ![](ranking.png)

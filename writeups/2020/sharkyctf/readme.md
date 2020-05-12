@@ -7,6 +7,8 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 # Summary
 
+## Reverse Engineering
+
 * [simple](simple/)
 * [secure_db](secure_db/)
 
@@ -16,4 +18,5 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 # Lessons Learned
 
+* angr.io FTW!
 

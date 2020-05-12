@@ -192,7 +192,7 @@ The formula is pretty simple to reverse. To get the flag:
 flag[pos] = (the_second_array[pos] ^ 42) - some_array[pos]
 ```
 
-## Get the flag
+## Solution
 
 ```
 kali@kali:~/Downloads/simple$ cat solve.py 

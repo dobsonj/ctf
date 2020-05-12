@@ -5,7 +5,7 @@ Our cluster just locked up. Could you see why our sat solver isn't tearing throu
 
 ## Analysis
 
-Egan decompiled antisat.exe with Ghidra and pulled out main():
+Egan decompiled antisat.exe with Ghidra and pulled out `main()`:
 
 ```
 /* DISPLAY WARNING: Type casts are NOT being printed */
@@ -46,7 +46,9 @@ int main(int _Argc,char **_Argv,char **_Env)
 }
 ```
 
-Then we just tweaked it and recompiled it natively without the slow printf():
+## Solution
+
+We just tweaked it and recompiled it natively without the slow `printf()`:
 
 ```
 #include <stdio.h>
@@ -88,11 +90,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-That was tested by comparing with the results from running antisat.exe in a Windows VM.
-
-## Get the flag
-
-After that, it just took a few minutes to brute force it:
+That was tested by comparing with the results from running antisat.exe in a Windows VM. After that, it just took a few minutes to brute force it:
 
 ```
 nulladdr:~$ gcc -o antisat antisat.c 
