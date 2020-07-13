@@ -196,7 +196,7 @@ os.system('chmod +x ' + patched)
 
 I probably could have just `nop`d away the call to `getKey()` instead of copying all the instructions to call and return from `win()`. Or for that matter, probably could have `nop`d out the inner loop in `getKey()`. In any case, this approach worked fine.
 
-Run it an we get our flag:
+Run it and we get our flag:
 
 ```
 kali@kali:~/Downloads$ python3 too_slow.py && ./a.out_patched 
