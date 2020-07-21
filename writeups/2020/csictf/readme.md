@@ -24,6 +24,7 @@ Team: [burner_herz0g](https://ctftime.org/team/63292)
 
 # Ranking
 
+40 out of 1009 teams
 
 # Lessons Learned
 
