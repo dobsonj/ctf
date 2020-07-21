@@ -15,6 +15,8 @@
 * [2020/rgbctf/too_slow](2020/rgbctf/too_slow/) (binary patching, xor, ghidra, c, asm, pwntools)
 * [2020/rgbctf/advanced_reversing_mechanics_1](2020/rgbctf/advanced_reversing_mechanics_1/) (arm, ghidra, c, python)
 * [2020/rgbctf/advanced_reversing_mechanics_2](2020/rgbctf/advanced_reversing_mechanics_2/) (arm, ghidra, c)
+* [2020/csictf/ricknmorty](2020/csictf/ricknmorty/) (ghidra, c, pwntools)
+* [2020/csictf/vietnam](2020/csictf/vietnam/) (ghidra, c, perl, gdb)
 
 ## Pwnables
 
@@ -23,6 +25,9 @@
 * [2020/castorsctf/babybof2](2020/castorsctf/babybof2/) (buffer overflow, gdb, pwntools)
 * [2020/ractf/finches_in_a_stack](2020/ractf/finches_in_a_stack/) (buffer overflow, format string, canary, gdb, pwntools)
 * [2020/ractf/finches_in_a_pie](2020/ractf/finches_in_a_pie/) (buffer overflow, format string, canary, pie, gdb, pwntools)
+* [2020/csictf/pwn_intended](2020/csictf/pwn_intended/) (buffer overflow, gdb, perl)
+* [2020/csictf/secret_society](2020/csictf/secret_society/) (buffer overflow, null terminator)
+* [2020/csictf/global_warming](2020/csictf/global_warming/) (format string, gdb, perl)
 
 ## Crypto
 
@@ -41,4 +46,5 @@
 ## Miscellaneous
 
 * [2020/ractf/teleport](2020/ractf/teleport/) (python, float)
+* [2020/csictf/friends](2020/csictf/friends/) (python, float, sed, parsing)
 
