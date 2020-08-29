@@ -12,7 +12,7 @@ nc chals20.cybercastors.com 14434
 
 Open with Ghidra, look at `main()`
 
-```
+```c
 undefined4 main(void)
 
 {
@@ -26,7 +26,7 @@ undefined4 main(void)
 
 `start()` accepts input from STDIN and is vulnerable to a buffer overflow.
 
-```
+```c
 void start(void)
 
 {
@@ -62,7 +62,7 @@ End of assembler dump.
 
 And `winnersLevel()` is the function we need to reach.
 
-```
+```c
 undefined4 winnersLevel(int param_1)
 
 {
@@ -196,8 +196,7 @@ gs             0x63                99
 
 Now that we have a working local exploit, write the script to exploit the remote server. One key thing I missed when I first wrote this is that we have to set `DEBUG` mode to dump out every byte received. Otherwise, we won't see the flag.
 
-```
-root@kali:~/Downloads# cat winners-exploit.py 
+```python
 #!/usr/bin/env python3
 from pwn import *
 context.log_level='DEBUG' # need debug mode to see flag

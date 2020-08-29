@@ -119,7 +119,7 @@ The main input string is limited to this character set:
 
 That's what the big switch statement is parsing. Then down at the bottom of `main()`, there is a string comparison:
 
-```
+```c
   str = STR;
   iVar2 = strcmp(STR,"HELLO\n");
   if (iVar2 == 0) {
@@ -205,7 +205,7 @@ Looking back at the case statements in `main()`, there are a few interesting one
 
 This calls `getchar()` to accept a new input character:
 
-```
+```c
     case ',':
       iVar2 = getchar();
       *sa = (char)iVar2;
@@ -214,7 +214,7 @@ This calls `getchar()` to accept a new input character:
 
 Then this will set the current `str` char to what is stored in `sa`:
 
-```
+```c
     case '.':
       puVar1 = str + 1;
       *str = *sa;

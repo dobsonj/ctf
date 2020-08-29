@@ -53,7 +53,7 @@ It's a 32-bit executable that takes a single filename argument and a single pass
 
 Open the binary in Ghidra and find where the input is accepted.
 
-```
+```c
 undefined4 FUN_0804870a(void)
 {
   size_t sVar1;
@@ -209,7 +209,7 @@ Wrong password sorry, exiting.
 That didn't work, so there must be some transformation.
 Before the string comparison, we get the input from STDIN here:
 
-```
+```c
   fgets(&DAT_0804d0c0,0x50,*(FILE **)PTR_stdin_0804cffc);
   sVar1 = strcspn(&DAT_0804d0c0,"\n");
   (&DAT_0804d0c0)[sVar1] = 0;
@@ -225,7 +225,7 @@ The buffer is 16 bytes (15 chars + '\0')
 What does `FUN_08048a90()` do?
 The decompiled C code is useless:
 
-```
+```c
 void FUN_08048a90(void)
 {
   return;
@@ -392,8 +392,7 @@ Let's try `angr` to solve this.
 
 ## Solution
 
-```
-kali@kali:~/Downloads/secure_db$ cat solve.py 
+```python
 #!/usr/bin/env python3
 import angr, time, claripy
 

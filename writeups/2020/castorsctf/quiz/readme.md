@@ -32,7 +32,7 @@ http://web1.cybercastors.com:14436/backup/
 
 And that link dumps the full source code for the Go service running this site.
 
-```
+```golang
 package main
 
 import (
@@ -188,7 +188,7 @@ func game(w http.ResponseWriter) {
 
 This is where the routes are setup:
 
-```
+```golang
 func main() {
         mux := httprouter.New()
 
@@ -213,7 +213,7 @@ mux.GET("/test/:directory/:theme/:whynot", super)
 
 That is mapped to this function:
 
-```
+```golang
 func super(w http.ResponseWriter, req *http.Request, ps httprouter.Params) {
         fmt.Println(ps.ByName("whynot"))
         var file string = "/" + ps.ByName("directory") + "/" + ps.ByName("theme") + "/" + ps.ByName("whynot")

@@ -2,9 +2,6 @@
 
 ## Reverse Engineering
 
-* [2019/dc27-openctf/antisat](2019/dc27-openctf/antisat/) (ghidra, c)
-* [2019/dc27-openctf/tellme](2019/dc27-openctf/tellme/) (ghidra, c)
-* [2019/dc27-openctf/tellmemore](2019/dc27-openctf/tellmemore/) (ghidra, c)
 * [2020/dawgctf/Put_your_thang_down](2020/dawgctf/Put_your_thang_down/) (ghidra, c)
 * [2020/wpictf/danger-Live-and-Malicious-Code](2020/wpictf/danger-Live-and-Malicious-Code/) (malware, js)
 * [2020/wpictf/NotWannasigh](2020/wpictf/NotWannasigh/) (malware, ghidra, xor, tcpdump, c)
@@ -31,12 +28,10 @@
 
 ## Crypto
 
-* [2019/dc27-openctf/baby_secret](2019/dc27-openctf/baby_secret/) (rot, spelling)
 * [2020/rgbctf/occasionally_tested_protocol](2020/rgbctf/occasionally_tested_protocol/) (xor, rand, time, python, pwntools)
 
 ## Web
 
-* [2020/bsidessf/simple_todos](2020/bsidessf/simple_todos/) (burpsuite, mongodb, meteor, websocket)
 * [2020/castorsctf/quiz](2020/castorsctf/quiz/) (dirb, golang, curl)
 
 ## Forensics

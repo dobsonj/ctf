@@ -13,7 +13,7 @@ Category: Forensics
 
 I did a quick `apt-cache search` to see what png tools are available and found these:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ pngcheck flag.png 
 flag.png  first chunk must be IHDR
 ERROR: flag.png
@@ -24,7 +24,7 @@ pngmeta: libpng read error for flag.png
 
 Now let's take a look with `hexdump`:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ hd flag.png | head
 00000000  89 50 4e 47 0d 0a 1a 0a  00 00 00 00 49 45 4e 44  |.PNG........IEND|
 00000010  ae 42 60 82 00 00 00 0d  49 48 44 52 00 00 01 5e  |.B`.....IHDR...^|
@@ -40,7 +40,7 @@ kali@kali:~/Downloads/ractf/cut_short$ hd flag.png | head
 
 For comparison, here is what a healthy `.png` image looks like:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ pngcheck defenit.png 
 OK: defenit.png (1500x944, 32-bit RGB+alpha, non-interlaced, 97.7%).
 kali@kali:~/Downloads/ractf/cut_short$ pngmeta defenit.png 
@@ -80,7 +80,7 @@ The IHDR chunk must appear FIRST. It contains:
 
 Well, it already has an IEND chunk at the end:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ hd flag.png | tail
 00003af0  f1 c5 61 fd f5 d7 9f a4  1a 97 ba b7 05 05 69 48  |..a...........iH|
 00003b00  57 63 f4 54 88 ad 69 a7  8d d5 88 42 bc 05 05 05  |Wc.T..i....B....|
@@ -98,7 +98,7 @@ So we just need to remove the IEND chunk from the beginning of the flag.
 
 From the head of the file:
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ hd flag.png | head -2
 00000000  89 50 4e 47 0d 0a 1a 0a  00 00 00 00 49 45 4e 44  |.PNG........IEND|
 00000010  ae 42 60 82 00 00 00 0d  49 48 44 52 00 00 01 5e  |.B`.....IHDR...^|
@@ -112,7 +112,7 @@ We need to remove bytes 13 - 24:
 
 We can remove that with `dd`.
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ dd if=flag.png of=flag2.png bs=1 count=12
 12+0 records in
 12+0 records out
@@ -139,7 +139,7 @@ ERROR: flag2.png
 
 From comparing `defenit.png` to `flag2.png`, it looks like I got the IHDR chunk in the right place.
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ hd defenit.png | head
 00000000  89 50 4e 47 0d 0a 1a 0a  00 00 00 0d 49 48 44 52  |.PNG........IHDR|
 00000010  00 00 05 dc 00 00 03 b0  08 06 00 00 00 24 d3 b6  |.............$..|
@@ -172,7 +172,7 @@ At this point, I searched for more tools to help, and found PCRT:
 
 * <https://github.com/sherlly/PCRT>
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ git clone https://github.com/sherlly/PCRT.git
 Cloning into 'PCRT'...
 remote: Enumerating objects: 23, done.
@@ -205,7 +205,7 @@ struct.error: unpack requires a string argument of length 8
 
 Ugh, I must have screwed up the IHDR or something. What about the original image?
 
-```bash
+```
 kali@kali:~/Downloads/ractf/cut_short$ python PCRT/PCRT.py -i flag.png -o flag3.png
 
          ____   ____ ____ _____ 

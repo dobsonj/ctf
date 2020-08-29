@@ -12,7 +12,7 @@ nc chals20.cybercastors.com 14425
 
 Open the binary with Ghidra and look at `main()`
 
-```
+```c
 void main(void)
 
 {
@@ -27,7 +27,7 @@ void main(void)
 
 It's a buffer overflow, we just have to write more than 256 chars. We need to call this handy `get_flag()` function:
 
-```
+```c
 void get_flag(void)
 
 {
@@ -160,8 +160,7 @@ Say your name: hello
 
 Now that we have a POC working locally, code up the exploit for the remote server.
 
-```
-root@kali:~/Downloads# cat exploit.py 
+```python
 #!/usr/bin/env python3
 from pwn import *
 

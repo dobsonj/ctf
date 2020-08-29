@@ -55,7 +55,7 @@ else:
 
 Ignore the mathy stuff and look at how the input is parsed:
 
-```
+```python
 print("Enter a number: ")
 sys.stdout.flush()
 x = round(float(input()), 0)

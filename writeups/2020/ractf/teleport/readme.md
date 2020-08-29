@@ -57,7 +57,7 @@ The goal is to print the flag, so we need to get down to this block:
 
 But we get a max distance of 10 each move.
 
-```bash
+```
 kali@kali:~/Downloads/ractf$ python3 teleport.py 
 Your player is at 0,0
 The flag is at 10000000000000, 10000000000000

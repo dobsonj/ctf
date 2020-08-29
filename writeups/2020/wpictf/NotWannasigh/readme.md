@@ -48,7 +48,7 @@ NotWannasigh: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamicall
 Open the binary in Ghidra and decompile.
 Let's start with `main()`... and hold your nose.
 
-```
+```c
 undefined8 main(void)
 {
   byte bVar1;
@@ -204,7 +204,7 @@ undefined8 main(void)
 
 So removing the useless lines...
 
-```
+```c
   local_50 = time((time_t *)0x0);
   srand((uint)local_50);
   local_54 = socket(2,1,0);
@@ -301,7 +301,7 @@ srand: 1585599106
 
 This next part of `main()` opens `flag.gif` for reading and prints the filesize:
 
-```
+```c
   puts("targetting flag.gif");
   local_60 = fopen("flag.gif","r+");
   fseek(local_60,0,2);
@@ -314,7 +314,7 @@ This next part of `main()` opens `flag.gif` for reading and prints the filesize:
 
 This encrypts the stream:
 
-```
+```c
   local_70 = (long)(int)local_64 + -1;
   alStack240[3] = (long)(int)local_64;
   alStack240[4] = 0;
@@ -351,7 +351,7 @@ This encrypts the stream:
 
 Close `flag.gif`:
 
-```
+```c
   fclose(__stream,*(undefined *)
                    (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x10154f;
@@ -359,7 +359,7 @@ Close `flag.gif`:
 
 Remove `flag.gif`:
 
-```
+```c
   remove("flag.gif",
          *(undefined *)(alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
   alStack240[uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe] = 0x101562;
@@ -367,7 +367,7 @@ Remove `flag.gif`:
 
 Write the encrypted file
 
-```
+```c
   local_98 = fopen("flag-gif.EnCiPhErEd",&DAT_001020ae,
                    *(undefined *)
                     (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
@@ -387,7 +387,7 @@ Write the encrypted file
 
 This last part obviously creates the ransom note:
 
-```
+```c
   __stream = fopen("ransomNote.txt",&DAT_001020ae,
                    *(undefined *)
                     (alStack240 + uVar5 * 0x1ffffffffffffffe + uVar6 * 0x1ffffffffffffffe));
@@ -409,8 +409,7 @@ It's just an XOR cipher, so it should be simple to reverse with that seed.
 
 ## Solution
 
-```
-kali@kali:~/Downloads/wipctf/wannasigh$ cat decrypt.c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

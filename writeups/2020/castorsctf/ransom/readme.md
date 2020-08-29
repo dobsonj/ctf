@@ -41,7 +41,7 @@ Open the binary in Ghidra and let it analyze. This takes a few minutes to run. L
 
 Let's start with `main.encrypt`:
 
-```
+```c
 void main.encrypt(char *__block,int __edflag)
 
 {
@@ -161,7 +161,7 @@ void main.encrypt(char *__block,int __edflag)
 
 It's an XOR cipher. `plVar5` gets initialized to something (not immediately obvious what), and then each iteration calls a `math/rand` function to set the new value of `plVar5` after the XOR.
 
-```
+```c
     while (lVar4 < 0x400) {
       local_480[lVar4] = local_480[lVar4] ^ (byte)plVar5;
       math/rand.();
@@ -196,7 +196,7 @@ Look at the timestamps for these packets though. There are several GET requests,
 
 Let's look at `main.getSeed`.
 
-```
+```c
 void main.getSeed(void)
 
 {
@@ -251,7 +251,7 @@ The `net/http.()` call must issue the GET request. [ioutil.readAll](https://gola
 
 Let's see where `main.getSeed` is called from `main.main`:
 
-```
+```c
 void main.main(undefined8 param_1,undefined8 param_2)
 
 {
@@ -296,7 +296,7 @@ void main.main(undefined8 param_1,undefined8 param_2)
 
 `main.main` calls `main.getSeed` first, and if it fails any of these checks, then it appears to seed with the timestamp of the local machine.
 
-```
+```c
     if ((((local_40 == 0) || (local_30 != 3)) || (*local_38 != 0x6b6f)) ||
        (*(char *)(local_38 + 1) != '\n')) {
 ```
@@ -320,7 +320,7 @@ local_40 = '\0'
 
 This must be the result of the POST request made by `main.send`, and we haven't looked at that function yet.
 
-```
+```c
 ssize_t main.send(int __fd,void *__buf,size_t __n,int __flags)
 
 {
@@ -465,8 +465,7 @@ rtt min/avg/max/mdev = 0.026/0.061/0.096/0.035 ms
 
 Create a quick and dirty web server to return the values we found in the tcpdump:
 
-```
-kali@kali:~/Downloads/castors/ransom$ cat fake_server.py 
+```python
 #!/usr/bin/env python3
 
 from flask import Flask
@@ -482,6 +481,11 @@ def seed():
 
 if __name__ == "__main__":
     app.run(host='192.168.0.2', port=8081)
+```
+
+Start the server:
+
+```
 kali@kali:~/Downloads/castors/ransom$ ./fake_server.py 
  * Serving Flask app "fake_server" (lazy loading)
  * Environment: production

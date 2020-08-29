@@ -29,7 +29,7 @@ It just takes an input and tries to validate it.
 
 Decompile with Ghidra. Here is the entry function:
 
-```
+```c
 void entry(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 {
   undefined8 in_stack_00000000;
@@ -45,7 +45,7 @@ void entry(undefined8 param_1,undefined8 param_2,undefined8 param_3)
 
 `entry()` calls this function:
 
-```
+```c
 undefined8 FUN_0010137d(void)
 {
   size_t sVar1;
@@ -67,7 +67,7 @@ undefined8 FUN_0010137d(void)
 
 It's looking for exactly 43 chars (0x2b). Otherwise, it fails with:
 
-```
+```c
 void FUN_00101195(void)
 {
   puts("Wrong. You need to work it.");
@@ -83,7 +83,7 @@ Wrong. You need to work it.
 
 Alright, now we make it past the first check and into this function:
 
-```
+```c
 void FUN_001012f2(void)
 {
   int local_c;
@@ -106,7 +106,7 @@ ffffffffffffffbe
 
 The next function after the complement is:
 
-```
+```c
 void FUN_001011f7(void)
 {
   undefined uVar1;
@@ -148,7 +148,7 @@ DawgCTF{XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX}
 
 After the transformation above is done, the validation function compares `DAT_00104040` to `PTR_DAT_00104010`:
 
-```
+```c
 void FUN_001011bb(void)
 {
   int iVar1;
@@ -166,7 +166,7 @@ void FUN_001011bb(void)
 
 We want to hit this function:
 
-```
+```c
 void FUN_001011a8(void)
 {
   puts("You did it!  Was it worth it?");
@@ -244,8 +244,7 @@ Put your thang down flip it and reverse it:
 
 We can use the decompiled C code to determine the input string one character at a time.
 
-```
-kali@kali:~/Downloads$ cat missyelliott_solver.c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
