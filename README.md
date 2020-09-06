@@ -33,6 +33,14 @@
 ## Crypto
 
 * [writeups/2020/rgbctf/occasionally_tested_protocol](writeups/2020/rgbctf/occasionally_tested_protocol/) (xor, rand, time, python, pwntools)
+* [writeups/2020/allesctf/aaslr1](writeups/2020/allesctf/aaslr1/) (ghidra, time, rand, python, pwntools)
+* [writeups/2020/allesctf/doors_of_durin](writeups/2020/allesctf/doors_of_durin/) (hash collision, md5, hashclash, strcmp, python, c, pwntools)
+
+## Miscellaneous
+
+* [writeups/2020/ractf/teleport](writeups/2020/ractf/teleport/) (python, float)
+* [writeups/2020/csictf/friends](writeups/2020/csictf/friends/) (python, float, sed, parsing)
+* [writeups/2020/allesctf/shebang](writeups/2020/allesctf/shebang/) (bash, fd)
 
 ## Web
 
@@ -41,9 +49,4 @@
 ## Forensics
 
 * [writeups/2020/ractf/cut_short](writeups/2020/ractf/cut_short/) (pngcheck, dd, hexdump, pcrt)
-
-## Miscellaneous
-
-* [writeups/2020/ractf/teleport](writeups/2020/ractf/teleport/) (python, float)
-* [writeups/2020/csictf/friends](writeups/2020/csictf/friends/) (python, float, sed, parsing)
 
