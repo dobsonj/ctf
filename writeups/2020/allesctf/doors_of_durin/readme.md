@@ -327,3 +327,78 @@ The flag is:
 ALLES{st0p_us1ng_md5_alr34dy_BabyRage_1836d}
 ```
 
+## Benchmarking and Post-analysis
+
+09/07/2020 update: After the CTF ended, I got my quota sorted out on AWS and spun up a `g4dn.xlarge` instance and tried the hashclash run again to see how it performs with a GPU:
+
+```
+ubuntu@ip-172-31-7-120:/mnt/nvme/hashclash/doors$ ../scripts/cpc.sh file1.txt file2.txt
+...
+Found 1 CUDA devices.
+Thread 1 created (AVX256).
+Thread 2 created (AVX256).
+Thread 3 created (AVX256).
+Thread 4 created (CUDA).
+CUDA device 0: Tesla T4 (40 MPs)
+Using 40 blocks with 1024 threads each: total 40960 threads.
+...
+```
+
+This was a just a 4x16 VM, because I expected the GPU to do the heavy lifting. But the GPU was only used for the first stage (and it did have a significant impact there). After that, I continued monitoring the system, and the GPU was idle while the 4 vcpus were pegged at 100%. So it didn't have the impact I was hoping for. I ended up killing this experiment after letting it run for 6 hours with the GPU sitting idle. This code primarily benefits from a large number of CPU cores.
+
+Separate from that, I came across another writeup for this challenge, and there is a MUCH cheaper algorithm I could have used:
+
+<https://github.com/CTF-STeam/ctf-writeups/tree/master/2020/ALLES!%20CTF/Doors%20of%20Durin>
+
+I tried that on my kali VM, and it finished in just over 4 minutes:
+
+```
+kali@kali:~/Downloads/hashclash/doors$ time ../scripts/poc_no.sh file1.txt 
+...
+Found collision!
+b4b9786d1092cfd82494f1f3ea9bd38f  collision1.bin
+b4b9786d1092cfd82494f1f3ea9bd38f  collision2.bin
+a9a44bb0484cb7c3de5be3b2b8a6cd5b910ea45a  collision1.bin
+bc416c48e4c074712db8a98f4e990fce19fa715f  collision2.bin
+4 -rw-r--r-- 1 kali kali 128 Sep  7 10:48 collision1.bin
+4 -rw-r--r-- 1 kali kali 128 Sep  7 10:48 collision2.bin
+
+real    4m15.494s
+user    17m27.514s
+sys     0m18.655s
+kali@kali:~/Downloads/hashclash/doors$ hexdump -C collision1.bin
+00000000  73 70 33 61 6b 66 72 31  65 6e 64 34 6e 64 33 6e  |sp3akfr1end4nd3n|
+00000010  74 33 72 00 09 02 dc 19  55 90 d2 df 0e 8c b6 61  |t3r.....U......a|
+00000020  61 18 77 71 c1 cf eb ad  d5 b8 8c 04 d6 47 99 08  |a.wq.........G..|
+00000030  fa 9b cc fd 39 ca 5d 84  af 52 d6 0c e2 c3 82 bb  |....9.]..R......|
+00000040  eb 0c e3 26 bc 48 13 2b  ad ee 70 c2 cd 95 f5 79  |...&.H.+..p....y|
+00000050  80 28 96 6a e1 81 39 ea  79 47 c7 6f b3 33 79 22  |.(.j..9.yG.o.3y"|
+00000060  17 7c 33 5c e6 83 c1 9f  d4 55 b0 a5 34 21 a6 a3  |.|3\.....U..4!..|
+00000070  3f 71 71 50 dd 43 f0 08  93 8a b3 05 9a ae b7 a8  |?qqP.C..........|
+00000080
+kali@kali:~/Downloads/hashclash/doors$ hexdump -C collision2.bin
+00000000  73 70 33 61 6b 66 72 31  65 6f 64 34 6e 64 33 6e  |sp3akfr1eod4nd3n|
+00000010  74 33 72 00 09 02 dc 19  55 90 d2 df 0e 8c b6 61  |t3r.....U......a|
+00000020  61 18 77 71 c1 cf eb ad  d5 b8 8c 04 d6 47 99 08  |a.wq.........G..|
+00000030  fa 9b cc fd 39 ca 5d 84  af 52 d6 0c e2 c3 82 bb  |....9.]..R......|
+00000040  eb 0c e3 26 bc 48 13 2b  ad ed 70 c2 cd 95 f5 79  |...&.H.+..p....y|
+00000050  80 28 96 6a e1 81 39 ea  79 47 c7 6f b3 33 79 22  |.(.j..9.yG.o.3y"|
+00000060  17 7c 33 5c e6 83 c1 9f  d4 55 b0 a5 34 21 a6 a3  |.|3\.....U..4!..|
+00000070  3f 71 71 50 dd 43 f0 08  93 8a b3 05 9a ae b7 a8  |?qqP.C..........|
+00000080
+```
+
+I remember seeing an example for `poc_no.sh` while I was looking for options during the CTF, but it was listed as an identical-prefix collision, so I didn't expect it to work for this problem. Turns out the 9th byte is different, which makes it perfect for this challenge!
+
+| Host         | Size  | CPU         | GPU      | OS                    | Script    | Runtime    |
+| ------------ | ----- | ----------- | -------- | --------------------- | --------- | ---------- |
+| VirtualBox   | 8x16  | Ryzen 2700X | None     | Kali 2020             | cpc.sh    | ~8 hours   |
+| DigitalOcean | 32x64 | Xeon 6140   | None     | Ubuntu 20.04          | cpc.sh    | ~3 hours   |
+| AWS          | 4x16  | Xeon 8259CL | Tesla T4 | DL AMI (Ubuntu 18.04) | cpc.sh    | >6 hours (incomplete) |
+| VirtualBox   | 8x16  | Ryzen 2700X | None     | Kali 2020             | poc_no.sh | ~4 min     |
+
+Lessons learned:
+
+* Use `poc_no.sh` if you can! I assumed this would only generate true identical-prefix collisions.
+* Throw as many CPU cores as you can afford at `cpc.sh`. A GPU is a bonus, but you still need a lot of CPU power.
+
