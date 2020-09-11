@@ -19,6 +19,8 @@ RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos
 RUN ACCEPT_EULA=y yum install -y \
 	vim \
 	git \
+	gcc \
+	gcc-c++ \
 	python3 \
 	python3-pip \
 	python3-devel \
@@ -27,14 +29,13 @@ RUN ACCEPT_EULA=y yum install -y \
 	msodbcsql17 \
 	mssql-tools
 
-RUN yum group install -y "Development Tools"
-
 RUN yum install -y /root/install/*
 
 # python packages
 RUN pip3 install \
 	pandas \
-	pyodbc
+	pyodbc \
+	sqlalchemy
 
 # cleanup
 WORKDIR /root
