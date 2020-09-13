@@ -14,6 +14,7 @@
 * [2020/rgbctf/advanced_reversing_mechanics_2](2020/rgbctf/advanced_reversing_mechanics_2/) (arm, ghidra, c)
 * [2020/csictf/ricknmorty](2020/csictf/ricknmorty/) (ghidra, c, pwntools)
 * [2020/csictf/vietnam](2020/csictf/vietnam/) (ghidra, c, perl, gdb)
+* [2020/csaw/not_malware](2020/csaw/not_malware/) (malware, ghidra, c, gdb, angr, pwntools, binary patching, strace)
 
 ## Pwnables
 

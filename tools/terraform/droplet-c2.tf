@@ -6,7 +6,9 @@ resource "digitalocean_droplet" "c2" {
   private_networking = true
   ssh_keys = [
     data.digitalocean_ssh_key.key1.id,
-    data.digitalocean_ssh_key.key2.id
+    data.digitalocean_ssh_key.key2.id,
+    data.digitalocean_ssh_key.key3.id,
+    data.digitalocean_ssh_key.terraform1.id
   ]
   connection {
     host = self.ipv4_address
@@ -15,13 +17,13 @@ resource "digitalocean_droplet" "c2" {
     private_key = file(var.pvt_key)
     timeout = "2m"
   }
-#  provisioner "remote-exec" {
-#    inline = [
-#      "export PATH=$PATH:/usr/bin",
-#      "sudo apt-get update",
-#      "sudo apt-get -y install vim git nmap"
-#    ]
-#  }
+  provisioner "remote-exec" {
+    inline = [
+      "export PATH=$PATH:/usr/bin",
+      "sudo apt-get update",
+      "sudo apt-get -y install vim git nmap"
+    ]
+  }
 }
 
 resource "digitalocean_project_resources" "ctf" {
