@@ -41,8 +41,15 @@
 
 ## Web
 
+* [2020/bsidessf/simple_todos](2020/bsidessf/simple_todos) (mongodb, meteor, websocket, burpsuite)
 * [2020/castorsctf/quiz](2020/castorsctf/quiz/) (dirb, golang, curl)
 
 ## Forensics
 
 * [2020/ractf/cut_short](2020/ractf/cut_short/) (pngcheck, dd, hexdump, pcrt)
+
+## Attack / Defend
+
+* [2020/ucsb-ictf](2020/ucsb-ictf) (python, attack automation)
+* [2020/saarctf](2020/saarctf) (python, attack automation)
+
