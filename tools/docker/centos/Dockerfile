@@ -27,7 +27,9 @@ RUN ACCEPT_EULA=y yum install -y \
 	unixODBC \
 	unixODBC-devel \
 	msodbcsql17 \
-	mssql-tools
+	mssql-tools \
+	httpd \
+	mod_wsgi
 
 RUN yum install -y /root/install/*
 
