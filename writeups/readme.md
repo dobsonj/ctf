@@ -15,6 +15,7 @@
 * [2020/csictf/ricknmorty](2020/csictf/ricknmorty/) (ghidra, c, pwntools)
 * [2020/csictf/vietnam](2020/csictf/vietnam/) (ghidra, c, perl, gdb)
 * [2020/csaw/not_malware](2020/csaw/not_malware/) (malware, ghidra, c, gdb, angr, pwntools, binary patching, strace)
+* [2021/nahamconctf/banking_on_it](2021/nahamconctf/banking_on_it/) (priv esc, c, python, pexpect)
 
 ## Pwnables
 
