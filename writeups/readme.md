@@ -16,6 +16,9 @@
 * [2020/csictf/vietnam](2020/csictf/vietnam/) (ghidra, c, perl, gdb)
 * [2020/csaw/not_malware](2020/csaw/not_malware/) (malware, ghidra, c, gdb, angr, pwntools, binary patching, strace)
 * [2021/nahamconctf/banking_on_it](2021/nahamconctf/banking_on_it/) (priv esc, c, python, pexpect)
+* [2021/angstromctf/free_flags](2021/angstromctf/free_flags/) (ghidra, c, python)
+* [2021/b01lersctf/weenie_hut_general](2021/b01lersctf/weenie_hut_general/) (ghidra, c, xor, rand)
+* [2021/b01lersctf/swirler](2021/b01lersctf/swirler/) (js, image, qr)
 
 ## Pwnables
 
@@ -27,6 +30,18 @@
 * [2020/csictf/pwn_intended](2020/csictf/pwn_intended/) (buffer overflow, gdb, perl)
 * [2020/csictf/secret_society](2020/csictf/secret_society/) (buffer overflow, null terminator)
 * [2020/csictf/global_warming](2020/csictf/global_warming/) (format string, gdb, perl)
+* [2021/angstromctf/secure_login](2021/angstromctf/secure_login/) (urandom, strcmp, c)
+* [2021/angstromctf/tranquil](2021/angstromctf/tranquil/) (buffer overflow, c, perl)
+* [2021/angstromctf/sanity_checks](2021/angstromctf/sanity_checks/) (buffer overflow, c, perl)
+* [2021/angstromctf/stickystacks](2021/angstromctf/stickystacks/) (format string, c, perl)
+* [2021/angstromctf/raiid_shadow_legends](2021/angstromctf/raiid_shadow_legends/) (c++, stack garbage, pwntools)
+
+## Web
+
+* [2020/bsidessf/simple_todos](2020/bsidessf/simple_todos) (mongodb, meteor, websocket, burpsuite)
+* [2020/castorsctf/quiz](2020/castorsctf/quiz/) (dirb, golang, curl)
+* [2021/angstromctf/sea_of_quills](2021/angstromctf/sea_of_quills/) (ruby, sqli)
+* [2021/b01lersctf/lorem_ipsum](2021/b01lersctf/lorem_ipsum/) (lfi, flask, python)
 
 ## Crypto
 
@@ -40,17 +55,7 @@
 * [2020/csictf/friends](2020/csictf/friends/) (python, float, sed, parsing)
 * [2020/allesctf/shebang](2020/allesctf/shebang/) (bash, fd)
 
-## Web
-
-* [2020/bsidessf/simple_todos](2020/bsidessf/simple_todos) (mongodb, meteor, websocket, burpsuite)
-* [2020/castorsctf/quiz](2020/castorsctf/quiz/) (dirb, golang, curl)
-
 ## Forensics
 
 * [2020/ractf/cut_short](2020/ractf/cut_short/) (pngcheck, dd, hexdump, pcrt)
-
-## Attack / Defend
-
-* [2020/ucsb-ictf](2020/ucsb-ictf) (python, attack automation)
-* [2020/saarctf](2020/saarctf) (python, attack automation)
 

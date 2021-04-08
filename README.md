@@ -20,6 +20,9 @@
 * [writeups/2020/csictf/vietnam](writeups/2020/csictf/vietnam/) (ghidra, c, perl, gdb)
 * [writeups/2020/csaw/not_malware](writeups/2020/csaw/not_malware/) (malware, ghidra, c, gdb, angr, pwntools, binary patching, strace)
 * [writeups/2021/nahamconctf/banking_on_it](writeups/2021/nahamconctf/banking_on_it/) (priv esc, c, python, pexpect)
+* [writeups/2021/angstromctf/free_flags](writeups/2021/angstromctf/free_flags/) (ghidra, c, python)
+* [writeups/2021/b01lersctf/weenie_hut_general](writeups/2021/b01lersctf/weenie_hut_general/) (ghidra, c, xor, rand)
+* [writeups/2021/b01lersctf/swirler](writeups/2021/b01lersctf/swirler/) (js, image, qr)
 
 ## Pwnables
 
@@ -31,6 +34,18 @@
 * [writeups/2020/csictf/pwn_intended](writeups/2020/csictf/pwn_intended/) (buffer overflow, gdb, perl)
 * [writeups/2020/csictf/secret_society](writeups/2020/csictf/secret_society/) (buffer overflow, null terminator)
 * [writeups/2020/csictf/global_warming](writeups/2020/csictf/global_warming/) (format string, gdb, perl)
+* [writeups/2021/angstromctf/secure_login](writeups/2021/angstromctf/secure_login/) (urandom, strcmp, c)
+* [writeups/2021/angstromctf/tranquil](writeups/2021/angstromctf/tranquil/) (buffer overflow, c, perl)
+* [writeups/2021/angstromctf/sanity_checks](writeups/2021/angstromctf/sanity_checks/) (buffer overflow, c, perl)
+* [writeups/2021/angstromctf/stickystacks](writeups/2021/angstromctf/stickystacks/) (format string, c, perl)
+* [writeups/2021/angstromctf/raiid_shadow_legends](writeups/2021/angstromctf/raiid_shadow_legends/) (c++, stack garbage, pwntools)
+
+## Web
+
+* [writeups/2020/bsidessf/simple_todos](writeups/2020/bsidessf/simple_todos) (mongodb, meteor, websocket, burpsuite)
+* [writeups/2020/castorsctf/quiz](writeups/2020/castorsctf/quiz/) (dirb, golang, curl)
+* [writeups/2021/angstromctf/sea_of_quills](writeups/2021/angstromctf/sea_of_quills/) (ruby, sqli)
+* [writeups/2021/b01lersctf/lorem_ipsum](writeups/2021/b01lersctf/lorem_ipsum/) (lfi, flask, python)
 
 ## Crypto
 
@@ -44,17 +59,7 @@
 * [writeups/2020/csictf/friends](writeups/2020/csictf/friends/) (python, float, sed, parsing)
 * [writeups/2020/allesctf/shebang](writeups/2020/allesctf/shebang/) (bash, fd)
 
-## Web
-
-* [writeups/2020/bsidessf/simple_todos](writeups/2020/bsidessf/simple_todos) (mongodb, meteor, websocket, burpsuite)
-* [writeups/2020/castorsctf/quiz](writeups/2020/castorsctf/quiz/) (dirb, golang, curl)
-
 ## Forensics
 
 * [writeups/2020/ractf/cut_short](writeups/2020/ractf/cut_short/) (pngcheck, dd, hexdump, pcrt)
-
-## Attack / Defend
-
-* [writeups/2020/ucsb-ictf](writeups/2020/ucsb-ictf) (python, attack automation)
-* [writeups/2020/saarctf](writeups/2020/saarctf) (python, attack automation)
 
