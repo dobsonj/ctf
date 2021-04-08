@@ -79,7 +79,7 @@ And there's our flag table!
 
 All that's left to do is use the union to get `flag from flagtable`:
 
-![](1.png)
+![](5.png)
 
 The flag is:
 
