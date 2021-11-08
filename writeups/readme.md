@@ -19,6 +19,9 @@
 * [2021/angstromctf/free_flags](2021/angstromctf/free_flags/) (ghidra, c, python)
 * [2021/b01lersctf/weenie_hut_general](2021/b01lersctf/weenie_hut_general/) (ghidra, c, xor, rand)
 * [2021/b01lersctf/swirler](2021/b01lersctf/swirler/) (js, image, qr)
+* [2021/damctf/seed](2021/damctf/seed/) (seed, hash, time, python)
+* [2021/damctf/sneaky](2021/damctf/sneaky/) (malware, bash, python, wireshark)
+* [2021/damctf/danceparty](2021/damctf/danceparty/) (malware, windows, ghidra, base64, xor)
 
 ## Pwnables
 
@@ -48,6 +51,7 @@
 * [2020/rgbctf/occasionally_tested_protocol](2020/rgbctf/occasionally_tested_protocol/) (xor, rand, time, python, pwntools)
 * [2020/allesctf/aaslr1](2020/allesctf/aaslr1/) (ghidra, time, rand, python, pwntools)
 * [2020/allesctf/doors_of_durin](2020/allesctf/doors_of_durin/) (hash collision, md5, hashclash, strcmp, python, c, pwntools)
+* [2021/damctf/xorpals](2021/damctf/xorpals/) (xor, python, bruteforce)
 
 ## Miscellaneous
 

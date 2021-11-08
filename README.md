@@ -23,6 +23,9 @@
 * [writeups/2021/angstromctf/free_flags](writeups/2021/angstromctf/free_flags/) (ghidra, c, python)
 * [writeups/2021/b01lersctf/weenie_hut_general](writeups/2021/b01lersctf/weenie_hut_general/) (ghidra, c, xor, rand)
 * [writeups/2021/b01lersctf/swirler](writeups/2021/b01lersctf/swirler/) (js, image, qr)
+* [writeups/2021/damctf/seed](writeups/2021/damctf/seed/) (seed, hash, time, python)
+* [writeups/2021/damctf/sneaky](writeups/2021/damctf/sneaky/) (malware, bash, python, wireshark)
+* [writeups/2021/damctf/danceparty](writeups/2021/damctf/danceparty/) (malware, windows, ghidra, base64, xor)
 
 ## Pwnables
 
@@ -52,6 +55,7 @@
 * [writeups/2020/rgbctf/occasionally_tested_protocol](writeups/2020/rgbctf/occasionally_tested_protocol/) (xor, rand, time, python, pwntools)
 * [writeups/2020/allesctf/aaslr1](writeups/2020/allesctf/aaslr1/) (ghidra, time, rand, python, pwntools)
 * [writeups/2020/allesctf/doors_of_durin](writeups/2020/allesctf/doors_of_durin/) (hash collision, md5, hashclash, strcmp, python, c, pwntools)
+* [writeups/2021/damctf/xorpals](writeups/2021/damctf/xorpals/) (xor, python, bruteforce)
 
 ## Miscellaneous
 
