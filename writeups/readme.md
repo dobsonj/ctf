@@ -38,6 +38,7 @@
 * [2021/angstromctf/sanity_checks](2021/angstromctf/sanity_checks/) (buffer overflow, c, perl)
 * [2021/angstromctf/stickystacks](2021/angstromctf/stickystacks/) (format string, c, perl)
 * [2021/angstromctf/raiid_shadow_legends](2021/angstromctf/raiid_shadow_legends/) (c++, stack garbage, pwntools)
+* [2022/cyberedu/baby-rop](2022/cyberedu/baby-rop) (rop, gdb, pwntools, libc)
 
 ## Web
 
