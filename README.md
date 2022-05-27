@@ -1,8 +1,6 @@
 # CTF
 
-[Tools](tools/) and [writeups](writeups/) for various capture-the-flag events. These challenges are a great way to learn about reverse engineering, cryptography, vulnerability discovery, and exploit development. Most of the CTF events I join are with [burner_herz0g](https://ctftime.org/team/63292). There's going to be some unfinished stuff in this repo just because it might be useful for another challenge later on.
-
-# Write-ups
+Write-ups for various capture the flag events. These challenges are a great way to learn about reverse engineering, cryptography, vulnerability discovery, and exploit development. Most of the CTF events I join are with [burner_herz0g](https://ctftime.org/team/63292) and I typically focus on binary challenges (RE / pwn).
 
 ## Reverse Engineering
 
